@@ -8,24 +8,21 @@ fn main() -> io::Result<()> {
 
     buf_reader.read_to_string(&mut data)?;
 
+    let max = data
+        .split("\n\n")
+        .filter_map(|part| {
+            part.split("\n")
+                .map(|i| i.trim().parse::<i32>())
+                .filter_map(Result::ok)
+                .sum::<i32>()
+                .checked_sub(1)
+        })
+        .max();
 
-    let mut max = 0;
-    for part in data.split("\n\n") {
-        let mut sum: i32 = 0;
-        for i in part.split("\n") {
-            let step: i32 = match i.trim().parse() {
-                Ok(num) => num,
-                Err(_) => continue,
-            };
-            sum += step;
-
-        }
-        if max <= sum {
-            max = sum;
-        }
+    match max {
+        Some(m) => println!("{m}"),
+        None => println!("No data found"),
     }
-
-    println!("{max}");
 
     Ok(())
 }
