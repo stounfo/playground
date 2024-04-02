@@ -1,0 +1,3 @@
+```bash
+rustc ./result.rs
+```
