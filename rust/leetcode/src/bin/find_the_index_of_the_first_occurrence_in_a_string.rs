@@ -4,7 +4,7 @@ impl Solution {
         if haystack.len() < needle.len() {
             return -1;
         };
-        for i in 0..haystack.len() {
+        for i in 0..haystack.len() - needle.len() + 1 {
             let mut j = 0;
             let mut is_equal = true;
             while is_equal && j + i < haystack.len() {
